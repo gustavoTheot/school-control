@@ -1,1 +1,0 @@
-export { useOfflineSyncStore } from './offlineSyncStore';

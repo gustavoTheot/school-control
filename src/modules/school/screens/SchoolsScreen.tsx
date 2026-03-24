@@ -1,14 +1,9 @@
 import { ChevronLeft, Pencil, Search, Trash2 } from 'lucide-react-native';
 import { FlatList, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useRouter } from 'expo-router';
 
-import { useOfflineSyncStore } from '../../shared/stores/offlineSyncStore';
 import { useSchool } from '../hooks/useSchool';
 
 export default function SchoolsScreen() {
-  const router = useRouter();
-  const { pendingCount, isSyncing } = useOfflineSyncStore();
-
   const {
     schools,
     isLoading,
@@ -33,16 +28,6 @@ export default function SchoolsScreen() {
         </View>
 
         <Text style={styles.title}>Escolas</Text>
-
-        <TouchableOpacity
-          style={styles.syncBadge}
-          activeOpacity={0.85}
-          onPress={() => router.push('/sync')}
-        >
-          <Text style={styles.syncBadgeText}>
-            {isSyncing ? 'Sincronizando...' : `Pendencias: ${pendingCount}`}
-          </Text>
-        </TouchableOpacity>
 
         <View style={styles.searchBox}>
           <Search size={18} color="#64748b" />
@@ -162,20 +147,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#0f172a',
     fontWeight: '900',
-  },
-  syncBadge: {
-    marginTop: 8,
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    height: 30,
-    borderRadius: 10,
-    justifyContent: 'center',
-    backgroundColor: '#dbeafe',
-  },
-  syncBadgeText: {
-    color: '#1d4ed8',
-    fontWeight: '700',
-    fontSize: 12,
   },
   searchBox: {
     marginTop: 10,

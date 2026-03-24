@@ -1,9 +1,5 @@
 import { create } from 'zustand';
 
-import { classCacheKey, SCHOOL_CACHE_KEY } from '../../shared/utils/offlineKeys';
-import { isLikelyNetworkError } from '../../shared/utils/networkError';
-import { enqueueOfflineOperation, syncOfflineOutbox } from '../../shared/utils/offlineSync';
-import { readOfflineItem, removeOfflineItem, writeOfflineItem } from '../../shared/utils/offlineStorage';
 import { SchoolService } from '../services/schoolService';
 import { CreateSchool, School, UpdateSchool } from '../types/schoolDto';
 
@@ -30,32 +26,10 @@ export const useSchoolStore = create<SchoolState>((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      await syncOfflineOutbox();
-
       const data = await schoolService.getAll(search);
-      const schools = data as SchoolItem[];
-      set({ schools });
-
-      if (!search) {
-        await writeOfflineItem(SCHOOL_CACHE_KEY, schools);
-      }
+      set({ schools: data as SchoolItem[] });
     } catch {
-      const cachedSchools = (await readOfflineItem<SchoolItem[]>(SCHOOL_CACHE_KEY)) || [];
-
-      if (cachedSchools.length) {
-        const normalizedSearch = search?.trim().toLowerCase();
-        const filteredSchools = normalizedSearch
-          ? cachedSchools.filter(
-              (school) =>
-                school.name.toLowerCase().includes(normalizedSearch) ||
-                school.address.toLowerCase().includes(normalizedSearch),
-            )
-          : cachedSchools;
-
-        set({ schools: filteredSchools, error: null });
-      } else {
-        set({ error: 'Erro ao carregar escolas.' });
-      }
+      set({ error: 'Erro ao carregar escolas.' });
     } finally {
       set({ isLoading: false });
     }
@@ -65,41 +39,9 @@ export const useSchoolStore = create<SchoolState>((set) => ({
     set({ error: null });
 
     try {
-      const created = await schoolService.create(data);
-      const createdSchool = created as SchoolItem;
-
-      set((state) => {
-        const nextSchools = [...state.schools, createdSchool];
-        void writeOfflineItem(SCHOOL_CACHE_KEY, nextSchools);
-        return { schools: nextSchools };
-      });
-
-      await syncOfflineOutbox();
+      const created = (await schoolService.create(data)) as SchoolItem;
+      set((state) => ({ schools: [...state.schools, created] }));
     } catch (error) {
-      if (isLikelyNetworkError(error)) {
-        const localSchool: SchoolItem = {
-          id: `local-school-${Date.now()}`,
-          name: data.name,
-          address: data.address,
-          number_of_classes: 0,
-        };
-
-        set((state) => {
-          const nextSchools = [...state.schools, localSchool];
-          void writeOfflineItem(SCHOOL_CACHE_KEY, nextSchools);
-          return { schools: nextSchools, error: null };
-        });
-
-        await enqueueOfflineOperation({
-          entity: 'school',
-          action: 'create',
-          targetId: localSchool.id,
-          payload: data,
-        });
-
-        return;
-      }
-
       set({ error: 'Erro ao criar escola.' });
       throw error;
     }
@@ -109,40 +51,13 @@ export const useSchoolStore = create<SchoolState>((set) => ({
     set({ error: null });
 
     try {
-      const updated = await schoolService.update(id, data);
-      const updatedSchool = updated as SchoolItem;
-
+      const updated = (await schoolService.update(id, data)) as SchoolItem;
       set((state) => ({
-        schools: (() => {
-          const nextSchools = state.schools.map((school) =>
-            school.id === id ? { ...school, ...updatedSchool } : school,
-          );
-          void writeOfflineItem(SCHOOL_CACHE_KEY, nextSchools);
-          return nextSchools;
-        })(),
+        schools: state.schools.map((school) =>
+          school.id === id ? { ...school, ...updated } : school,
+        ),
       }));
-
-      await syncOfflineOutbox();
     } catch (error) {
-      if (isLikelyNetworkError(error)) {
-        set((state) => {
-          const nextSchools = state.schools.map((school) =>
-            school.id === id ? { ...school, ...data } : school,
-          );
-          void writeOfflineItem(SCHOOL_CACHE_KEY, nextSchools);
-          return { schools: nextSchools, error: null };
-        });
-
-        await enqueueOfflineOperation({
-          entity: 'school',
-          action: 'update',
-          targetId: id,
-          payload: data,
-        });
-
-        return;
-      }
-
       set({ error: 'Erro ao atualizar escola.' });
       throw error;
     }
@@ -153,32 +68,8 @@ export const useSchoolStore = create<SchoolState>((set) => ({
 
     try {
       await schoolService.delete(id);
-      set((state) => {
-        const nextSchools = state.schools.filter((school) => school.id !== id);
-        void writeOfflineItem(SCHOOL_CACHE_KEY, nextSchools);
-        void removeOfflineItem(classCacheKey(id));
-        return { schools: nextSchools };
-      });
-
-      await syncOfflineOutbox();
+      set((state) => ({ schools: state.schools.filter((school) => school.id !== id) }));
     } catch (error) {
-      if (isLikelyNetworkError(error)) {
-        set((state) => {
-          const nextSchools = state.schools.filter((school) => school.id !== id);
-          void writeOfflineItem(SCHOOL_CACHE_KEY, nextSchools);
-          void removeOfflineItem(classCacheKey(id));
-          return { schools: nextSchools, error: null };
-        });
-
-        await enqueueOfflineOperation({
-          entity: 'school',
-          action: 'delete',
-          targetId: id,
-        });
-
-        return;
-      }
-
       set({ error: 'Erro ao remover escola.' });
       throw error;
     }

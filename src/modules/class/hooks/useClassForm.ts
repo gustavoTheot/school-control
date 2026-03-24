@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { isAxiosError } from 'axios';
 
 import { useSchoolStore } from '../../school/stores/schoolStore';
 import { useClassStore } from '../stores/classStore';
@@ -27,7 +28,7 @@ export function useClassForm() {
   }, [params.schoolId]);
 
   const isEditing = !!classId;
-  const { classes, addClass, updateClass, fetchClasses } = useClassStore();
+  const { classes, addClass, updateClass, fetchClasses, error: classStoreError } = useClassStore();
   const { schools, fetchSchools } = useSchoolStore();
   const schoolName = schools.find((school) => school.id === schoolId)?.name;
 
@@ -106,8 +107,13 @@ export function useClassForm() {
       }
 
       router.back();
-    } catch {
-      setErrors({ general: 'Não foi possível salvar a turma.' });
+    } catch (error) {
+      const apiMessage =
+        isAxiosError<{ message?: string }>(error) && error.response?.data?.message
+          ? error.response.data.message
+          : null;
+
+      setErrors({ general: apiMessage || classStoreError || 'Não foi possível salvar a turma.' });
     } finally {
       setIsLoadingSaving(false);
     }

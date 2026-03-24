@@ -9,7 +9,6 @@ import 'react-native-reanimated';
 import { GluestackUIProvider } from '../components/ui/gluestack-ui-provider';
 import { useColorScheme } from '../hooks/use-color-scheme';
 import { makeServer } from '../mocks/server';
-import { refreshOfflineSyncState, syncOfflineOutbox } from '../modules/shared/utils/offlineSync';
 
 let isServerStarted = false;
 
@@ -28,15 +27,8 @@ export default function RootLayout() {
 
     axios.defaults.baseURL = '/api';
 
-    void refreshOfflineSyncState();
-    void syncOfflineOutbox();
-
-    const syncInterval = setInterval(() => {
-      void syncOfflineOutbox();
-    }, 10000);
-
     return () => {
-      clearInterval(syncInterval);
+      // no-op cleanup
     };
   }, []);
 
@@ -57,7 +49,6 @@ export default function RootLayout() {
             name="class/form" 
             options={{ presentation: 'modal' }}
           />
-          <Stack.Screen name="sync/index" />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

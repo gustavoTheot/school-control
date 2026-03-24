@@ -17,6 +17,9 @@ export function useClass() {
   const debouncedSearch = useDebouncedValue(searchQuery, 450);
 
   const schoolName = schools.find((school) => school.id === schoolId)?.name;
+  const classesFromCurrentSchool = schoolId
+    ? classes.filter((classItem) => classItem.schoolId === schoolId)
+    : [];
 
   useEffect(() => {
     if (!schoolId) {
@@ -62,7 +65,7 @@ export function useClass() {
   };
 
   return {
-    classes,
+    classes: classesFromCurrentSchool,
     isLoading,
     error,
     searchQuery,
