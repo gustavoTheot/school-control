@@ -74,7 +74,7 @@ export function useSchoolForm() {
 
       router.back();
     } catch {
-      setErrors({ general: 'Nao foi possivel salvar a escola.' });
+      setErrors({ general: 'Não foi possível salvar a escola.' });
     } finally {
       setIsLoadingSaving(false);
     }

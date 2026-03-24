@@ -107,7 +107,7 @@ export function useClassForm() {
 
       router.back();
     } catch {
-      setErrors({ general: 'Nao foi possivel salvar a turma.' });
+      setErrors({ general: 'Não foi possível salvar a turma.' });
     } finally {
       setIsLoadingSaving(false);
     }
