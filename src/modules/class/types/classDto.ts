@@ -1,6 +1,7 @@
 type Shift = 'morning' | 'afternoon' | 'evening';
 
 export interface Class{
+  id: string;
   schoolId: string;
   name: string;
   shift: Shift;

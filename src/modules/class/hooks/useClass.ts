@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
-import { useSchoolStore } from '../../school/stores/schoolStore';
 import { useDebouncedValue } from '../../shared/utils/useDebouncedValue';
-import { ClassItem, useClassStore } from '../stores/classStore';
+import { showErrorToast, showSuccessToast } from '../../shared/utils/toast';
+import { useSchoolStore } from '../../school/stores/schoolStore';
+import { useClassStore } from '../stores/classStore';
+import { Class } from '../types/classDto';
 
 export function useClass() {
   const router = useRouter();
@@ -47,14 +49,19 @@ export function useClass() {
     router.push({ pathname: '/class/form', params: { id: classId, schoolId } });
   };
 
-  const handleDeletePress = (classItem: ClassItem) => {
+  const handleDeletePress = (classItem: Class) => {
     Alert.alert('Remover turma', `Deseja remover ${classItem.name}?`, [
       { text: 'Cancelar', style: 'cancel' },
       {
         text: 'Remover',
         style: 'destructive',
-        onPress: () => {
-          void removeClass(classItem.id);
+        onPress: async () => {
+          try {
+            await removeClass(classItem.id);
+            showSuccessToast('Turma removida', 'A turma foi removida com sucesso.');
+          } catch {
+            showErrorToast('Falha ao remover', 'Nao foi possivel remover a turma.');
+          }
         },
       },
     ]);

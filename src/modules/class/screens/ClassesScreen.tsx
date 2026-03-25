@@ -1,5 +1,6 @@
 import { ChevronLeft, Pencil, Search, Trash2 } from 'lucide-react-native';
-import { FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useClass } from '../hooks/useClass';
 

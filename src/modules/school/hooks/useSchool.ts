@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 
 import { useDebouncedValue } from '../../shared/utils/useDebouncedValue';
+import { showErrorToast, showSuccessToast } from '../../shared/utils/toast';
 import { SchoolItem, useSchoolStore } from '../stores/schoolStore';
 
 export function useSchool() {
@@ -43,8 +44,13 @@ export function useSchool() {
       {
         text: 'Remover',
         style: 'destructive',
-        onPress: () => {
-          void removeSchool(school.id);
+        onPress: async () => {
+          try {
+            await removeSchool(school.id);
+            showSuccessToast('Escola removida', 'A escola foi removida com sucesso.');
+          } catch {
+            showErrorToast('Falha ao remover', 'Nao foi possivel remover a escola.');
+          }
         },
       },
     ]);

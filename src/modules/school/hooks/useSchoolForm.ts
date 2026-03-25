@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
+import { showErrorToast, showSuccessToast } from '../../shared/utils/toast';
 import { useSchoolStore } from '../stores/schoolStore';
 
 type FormErrors = {
@@ -68,12 +69,15 @@ export function useSchoolForm() {
 
       if (isEditing && schoolId) {
         await updateSchool(schoolId, payload);
+        showSuccessToast('Escola atualizada', 'As informacoes da escola foram atualizadas.');
       } else {
         await addSchool(payload);
+        showSuccessToast('Escola criada', 'Nova escola cadastrada com sucesso.');
       }
 
       router.back();
     } catch {
+      showErrorToast('Falha ao salvar', 'Nao foi possivel salvar a escola.');
       setErrors({ general: 'Não foi possível salvar a escola.' });
     } finally {
       setIsLoadingSaving(false);

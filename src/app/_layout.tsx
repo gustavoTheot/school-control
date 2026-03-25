@@ -5,10 +5,12 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 import { GluestackUIProvider } from '../components/ui/gluestack-ui-provider';
 import { useColorScheme } from '../hooks/use-color-scheme';
 import { makeServer } from '../mocks/server';
+import { toastConfig } from '../modules/shared/components/toastConfig';
 
 let isServerStarted = false;
 
@@ -50,6 +52,7 @@ export default function RootLayout() {
             options={{ presentation: 'modal' }}
           />
         </Stack>
+        <Toast config={toastConfig} position="bottom" bottomOffset={90} visibilityTime={3200} />
         <StatusBar style="auto" />
       </ThemeProvider>
     </GluestackUIProvider>

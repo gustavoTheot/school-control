@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { isAxiosError } from 'axios';
 
 import { useSchoolStore } from '../../school/stores/schoolStore';
+import { showErrorToast, showSuccessToast } from '../../shared/utils/toast';
 import { useClassStore } from '../stores/classStore';
 import { CreateClass } from '../types/classDto';
 
@@ -30,6 +31,7 @@ export function useClassForm() {
   const isEditing = !!classId;
   const { classes, addClass, updateClass, fetchClasses, error: classStoreError } = useClassStore();
   const { schools, fetchSchools } = useSchoolStore();
+  
   const schoolName = schools.find((school) => school.id === schoolId)?.name;
 
   const [name, setName] = useState('');
@@ -102,8 +104,10 @@ export function useClassForm() {
 
       if (isEditing && classId) {
         await updateClass(classId, payload);
+        showSuccessToast('Turma atualizada', 'As informacoes da turma foram atualizadas.');
       } else {
         await addClass(payload);
+        showSuccessToast('Turma criada', 'Nova turma cadastrada com sucesso.');
       }
 
       router.back();
@@ -112,6 +116,8 @@ export function useClassForm() {
         isAxiosError<{ message?: string }>(error) && error.response?.data?.message
           ? error.response.data.message
           : null;
+
+      showErrorToast('Falha ao salvar', apiMessage || classStoreError || 'Nao foi possivel salvar a turma.');
 
       setErrors({ general: apiMessage || classStoreError || 'Não foi possível salvar a turma.' });
     } finally {
