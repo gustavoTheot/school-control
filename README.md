@@ -166,25 +166,13 @@ pnpm exec tsc --noEmit
 
 ## Prints da aplicação
 
-### Home
+| Home | Escolas | Formulario de Escola |
+| --- | --- | --- |
+| ![Home](src/assets/images/home.png) | ![School](src/assets/images/school.png) | ![Form School](src/assets/images/form-school.png) |
 
-![Home](src/assets/images/home.png)
-
-### Escolas
-
-![School](src/assets/images/school.png)
-
-### Formulário de Escola
-
-![Form School](src/assets/images/form-school.png)
-
-### Turmas
-
-![Class](src/assets/images/class.png)
-
-### Formulário de Turma
-
-![Form Class](src/assets/images/form-class.png)
+| Turmas | Formulario de Turma | |
+| --- | --- | --- |
+| ![Class](src/assets/images/class.png) | ![Form Class](src/assets/images/form-class.png) | |
 
 ## Boas práticas aplicadas
 
