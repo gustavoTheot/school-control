@@ -10,8 +10,8 @@ import { Class } from '../types/classDto';
 
 export function useClass() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ schoolId?: string | string[] }>();
-  const schoolId = Array.isArray(params.schoolId) ? params.schoolId[0] : params.schoolId;
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const schoolId = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const { classes, isLoading, error, fetchClasses, removeClass } = useClassStore();
   const { schools, fetchSchools } = useSchoolStore();
@@ -42,12 +42,12 @@ export function useClass() {
 
   const handleNavigateToNewClass = () => {
     if (!schoolId) return;
-    router.push({ pathname: '/class/form', params: { schoolId } });
+    router.push(`/class/${schoolId}/form`);
   };
 
   const handleEditPress = (classId: string) => {
     if (!schoolId) return;
-    router.push({ pathname: '/class/form', params: { id: classId, schoolId } });
+    router.push(`/class/${schoolId}/${classId}`);
   };
 
   const handleDeletePress = (classItem: Class) => {

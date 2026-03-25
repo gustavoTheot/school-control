@@ -18,17 +18,17 @@ const shifts: CreateClass['shift'][] = ['morning', 'afternoon', 'evening'];
 
 export function useClassForm() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ id?: string | string[]; schoolId?: string | string[] }>();
+  const params = useLocalSearchParams<{ id?: string | string[]; classId?: string | string[] }>();
   const classId = useMemo(() => {
+    if (!params.classId) return undefined;
+
+    return Array.isArray(params.classId) ? params.classId[0] : params.classId;
+  }, [params.classId]);
+  const schoolId = useMemo(() => {
     if (!params.id) return undefined;
 
     return Array.isArray(params.id) ? params.id[0] : params.id;
   }, [params.id]);
-  const schoolId = useMemo(() => {
-    if (!params.schoolId) return undefined;
-
-    return Array.isArray(params.schoolId) ? params.schoolId[0] : params.schoolId;
-  }, [params.schoolId]);
 
   const isEditing = !!classId;
   const { classes, addClass, updateClass, fetchClasses, error: classStoreError } = useClassStore();

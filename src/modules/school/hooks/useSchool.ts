@@ -30,7 +30,7 @@ export function useSchool() {
   };
 
   const handleEditPress = (schoolId: string) => {
-    router.push({ pathname: '/school/form', params: { id: schoolId } });
+    router.push(`/school/${schoolId}`);
   };
 
   const handleDeletePress = (school: School) => {
@@ -56,7 +56,7 @@ export function useSchool() {
   };
 
   const handleViewClasses = (schoolId: string) => {
-    router.push({ pathname: '/class', params: { schoolId } });
+    router.push(`/class/${schoolId}`);
   };
 
   return {
