@@ -6,6 +6,44 @@ Aplicativo mobile em React Native para controle de escolas e turmas, com foco em
 
 Gerenciar escolas e turmas de forma simples, com navegação clara, feedback visual de ações e cobertura de testes para os principais fluxos da feature School.
 
+## Versoes instaladas
+
+### Ambiente local
+
+- Node.js: v24.14.0
+
+### Base da aplicacao
+
+- expo: ~54.0.33
+- react: 19.1.0
+- react-native: 0.81.5
+- expo-router: ~6.0.23
+- typescript: ~5.9.2
+
+### UI e navegacao
+
+- @gluestack-ui/core: ^3.0.14
+- @gluestack-ui/utils: ^3.0.17
+- @react-navigation/native: ^7.1.8
+- nativewind: ^4.2.3
+- react-native-safe-area-context: ^5.6.1
+- react-native-screens: ~4.16.0
+- react-native-toast-message: ^2.3.3
+
+### Estado, dados e mock
+
+- zustand: ^5.0.12
+- axios: ^1.13.6
+- miragejs: ^0.1.48
+
+### Testes e qualidade
+
+- jest: ^29.7.0
+- jest-expo: ^55.0.11
+- @testing-library/react-native: ^13.3.3
+- eslint: ^9.25.0
+- prettier: ^3.8.1
+
 ## Organização do projeto
 
 A estrutura segue um padrão modular por domínio, muito usado na comunidade React Native para facilitar manutenção e evolução por times.

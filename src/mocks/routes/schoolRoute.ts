@@ -5,12 +5,16 @@ export function setupSchoolRoutes(server: Server<AppRegistry>) {
   server.get('/schools', (schema: AppSchema, request) => {
     const search = request.queryParams.search;
     const searchTerm = Array.isArray(search) ? search[0] : search;
+    const normalizedSearch = searchTerm?.toLowerCase().trim();
 
     const schools = schema
       .where('school', (school: any) => {
-        if (!searchTerm) return true;
+        if (!normalizedSearch) return true;
 
-        return school.name.toLowerCase().includes(searchTerm.toLowerCase());
+        return (
+          school.name.toLowerCase().includes(normalizedSearch) ||
+          school.address.toLowerCase().includes(normalizedSearch)
+        );
       })
       .models.map((school) => school.attrs);
 
