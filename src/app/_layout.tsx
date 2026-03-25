@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
-import { useColorScheme } from '../hooks/use-color-scheme';
+import { useColorScheme } from '../modules/shared/hooks/use-color-scheme';
 import { makeServer } from '../mocks/server';
 import { toastConfig } from '../modules/shared/components/toastConfig';
 import { GluestackUIProvider } from '@/modules/shared/components/ui/gluestack-ui-provider';
