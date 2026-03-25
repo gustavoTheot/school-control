@@ -1,6 +1,6 @@
 type Shift = 'morning' | 'afternoon' | 'evening';
 
-export interface Class{
+export interface Class {
   id: string;
   schoolId: string;
   name: string;

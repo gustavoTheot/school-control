@@ -13,20 +13,20 @@ A estrutura segue um padrão modular por domínio, muito usado na comunidade Rea
 ### Estrutura principal
 
 - src/app
-   - Rotas do Expo Router (entrada de navegação da aplicação)
+  - Rotas do Expo Router (entrada de navegação da aplicação)
 - src/modules/school
-   - adapters: contratos e interfaces do módulo
-   - services: acesso a API
-   - stores: estado global do módulo com Zustand
-   - hooks: regras de UI e integração tela + store
-   - screens: componentes de tela
-   - types: tipos e DTOs
+  - adapters: contratos e interfaces do módulo
+  - services: acesso a API
+  - stores: estado global do módulo com Zustand
+  - hooks: regras de UI e integração tela + store
+  - screens: componentes de tela
+  - types: tipos e DTOs
 - src/modules/class
-   - mesma estratégia estrutural do módulo School
+  - mesma estratégia estrutural do módulo School
 - src/modules/shared
-   - utilitários, componentes compartilhados e serviços transversais
+  - utilitários, componentes compartilhados e serviços transversais
 - src/mocks
-   - mock de API com MirageJS para desenvolvimento local
+  - mock de API com MirageJS para desenvolvimento local
 
 ## Funcionalidades
 
@@ -57,14 +57,14 @@ A estrutura segue um padrão modular por domínio, muito usado na comunidade Rea
 Os testes atuais estão focados na feature School:
 
 - Teste de store
-   - src/modules/school/stores/__tests__/schoolStore.test.ts
-   - valida criar, atualizar e remover no estado
+  - src/modules/school/stores/**tests**/schoolStore.test.ts
+  - valida criar, atualizar e remover no estado
 - Teste de componente
-   - src/modules/school/screens/__tests__/SchoolsScreen.test.tsx
-   - valida renderização e interação principal da tela
+  - src/modules/school/screens/**tests**/SchoolsScreen.test.tsx
+  - valida renderização e interação principal da tela
 - Teste de filtro
-   - src/modules/school/hooks/__tests__/useSchool.filter.test.ts
-   - valida comportamento de trim e busca do hook
+  - src/modules/school/hooks/**tests**/useSchool.filter.test.ts
+  - valida comportamento de trim e busca do hook
 
 ## Como rodar o projeto
 

@@ -26,6 +26,7 @@ export function useClass() {
   useEffect(() => {
     if (!schoolId) {
       router.replace('/school');
+
       return;
     }
 

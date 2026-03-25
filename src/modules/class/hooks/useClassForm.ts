@@ -21,10 +21,12 @@ export function useClassForm() {
   const params = useLocalSearchParams<{ id?: string | string[]; schoolId?: string | string[] }>();
   const classId = useMemo(() => {
     if (!params.id) return undefined;
+
     return Array.isArray(params.id) ? params.id[0] : params.id;
   }, [params.id]);
   const schoolId = useMemo(() => {
     if (!params.schoolId) return undefined;
+
     return Array.isArray(params.schoolId) ? params.schoolId[0] : params.schoolId;
   }, [params.schoolId]);
 
@@ -43,6 +45,7 @@ export function useClassForm() {
   useEffect(() => {
     if (!schoolId) {
       router.replace('/school');
+
       return;
     }
 
@@ -57,6 +60,7 @@ export function useClassForm() {
       setName(selected.name);
       setShift(selected.shift);
       setSchoolYearText(String(selected.school_year));
+
       return;
     }
 
@@ -80,12 +84,14 @@ export function useClassForm() {
     }
 
     setErrors(nextErrors);
+
     return Object.keys(nextErrors).length === 0;
   };
 
   const handleSave = async () => {
     if (!schoolId) {
       setErrors({ general: 'Escola nao informada para cadastro da turma.' });
+
       return;
     }
 
@@ -117,7 +123,10 @@ export function useClassForm() {
           ? error.response.data.message
           : null;
 
-      showErrorToast('Falha ao salvar', apiMessage || classStoreError || 'Nao foi possivel salvar a turma.');
+      showErrorToast(
+        'Falha ao salvar',
+        apiMessage || classStoreError || 'Nao foi possivel salvar a turma.',
+      );
 
       setErrors({ general: apiMessage || classStoreError || 'Não foi possível salvar a turma.' });
     } finally {

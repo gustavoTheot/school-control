@@ -21,11 +21,17 @@ function ToastCard({
   return (
     <View style={[styles.card, isSuccess ? styles.cardSuccess : styles.cardError]}>
       <View style={[styles.iconWrap, isSuccess ? styles.iconWrapSuccess : styles.iconWrapError]}>
-        {isSuccess ? <CheckCircle2 size={18} color="#166534" /> : <CircleAlert size={18} color="#991b1b" />}
+        {isSuccess ? (
+          <CheckCircle2 size={18} color="#166534" />
+        ) : (
+          <CircleAlert size={18} color="#991b1b" />
+        )}
       </View>
 
       <View style={styles.textWrap}>
-        <Text style={[styles.title, isSuccess ? styles.titleSuccess : styles.titleError]}>{title}</Text>
+        <Text style={[styles.title, isSuccess ? styles.titleSuccess : styles.titleError]}>
+          {title}
+        </Text>
         {message ? <Text style={styles.message}>{message}</Text> : null}
       </View>
     </View>

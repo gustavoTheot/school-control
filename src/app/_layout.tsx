@@ -1,4 +1,4 @@
-import '../styles/global.css'
+import '../styles/global.css';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -38,19 +38,11 @@ export default function RootLayout() {
     <GluestackUIProvider mode="dark">
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen 
-            name="index" 
-          />
+          <Stack.Screen name="index" />
           <Stack.Screen name="school/index" />
-          <Stack.Screen 
-            name="school/form" 
-            options={{ presentation: 'modal' }}
-          />
+          <Stack.Screen name="school/form" options={{ presentation: 'modal' }} />
           <Stack.Screen name="class/index" />
-          <Stack.Screen 
-            name="class/form" 
-            options={{ presentation: 'modal' }}
-          />
+          <Stack.Screen name="class/form" options={{ presentation: 'modal' }} />
         </Stack>
         <Toast config={toastConfig} position="bottom" bottomOffset={90} visibilityTime={3200} />
         <StatusBar style="auto" />

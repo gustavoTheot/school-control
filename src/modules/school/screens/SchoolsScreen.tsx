@@ -1,5 +1,13 @@
 import { ChevronLeft, Pencil, Search, Trash2 } from 'lucide-react-native';
-import { FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useSchool } from '../hooks/useSchool';
@@ -106,7 +114,11 @@ export default function SchoolsScreen() {
           />
         )}
 
-        <TouchableOpacity style={styles.fab} onPress={handleNavigateToNewSchool} activeOpacity={0.85}>
+        <TouchableOpacity
+          style={styles.fab}
+          onPress={handleNavigateToNewSchool}
+          activeOpacity={0.85}
+        >
           <Text style={styles.fabText}>+ Nova Escola</Text>
         </TouchableOpacity>
       </View>

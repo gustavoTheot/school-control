@@ -61,6 +61,7 @@ export function setupClassRoutes(server: Server<AppRegistry>) {
 
     const newAttrs = JSON.parse(request.requestBody);
     classItem.update(newAttrs);
+
     return classItem.attrs;
   });
 
@@ -78,6 +79,7 @@ export function setupClassRoutes(server: Server<AppRegistry>) {
     }
 
     classItem.destroy();
+
     return new Response(204);
   });
 }

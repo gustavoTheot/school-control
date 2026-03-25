@@ -1,4 +1,4 @@
-import { CreateSchool, School, UpdateSchool } from "../types/schoolDto";
+import { CreateSchool, School, UpdateSchool } from '../types/schoolDto';
 
 export interface SchoolInterface {
   getAll(search?: string): Promise<School[]>;

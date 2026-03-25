@@ -9,6 +9,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
+    "fix:all": "pnpm run lint:fix && pnpm run format",
     "test": "jest"
   },
   "dependencies": {

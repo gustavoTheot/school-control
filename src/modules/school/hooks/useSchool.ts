@@ -10,13 +10,7 @@ import { School } from '../types/schoolDto';
 
 export function useSchool() {
   const router = useRouter();
-  const {
-    schools,
-    isLoading,
-    error,
-    fetchSchools,
-    removeSchool,
-  } = useSchoolStore();
+  const { schools, isLoading, error, fetchSchools, removeSchool } = useSchoolStore();
 
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebouncedValue(searchQuery, 450);

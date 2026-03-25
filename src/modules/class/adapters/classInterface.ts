@@ -1,4 +1,4 @@
-import { Class, CreateClass, UpdateClass } from "../types/classDto";
+import { Class, CreateClass, UpdateClass } from '../types/classDto';
 
 export interface ClassInterface {
   getAll(schoolId: string, search?: string): Promise<Class[]>;

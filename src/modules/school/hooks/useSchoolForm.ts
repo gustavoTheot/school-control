@@ -15,6 +15,7 @@ export function useSchoolForm() {
   const params = useLocalSearchParams<{ id?: string | string[] }>();
   const schoolId = useMemo(() => {
     if (!params.id) return undefined;
+
     return Array.isArray(params.id) ? params.id[0] : params.id;
   }, [params.id]);
 
@@ -34,6 +35,7 @@ export function useSchoolForm() {
     if (selected) {
       setName(selected.name);
       setAddress(selected.address);
+
       return;
     }
 
@@ -52,6 +54,7 @@ export function useSchoolForm() {
     }
 
     setErrors(nextErrors);
+
     return Object.keys(nextErrors).length === 0;
   };
 

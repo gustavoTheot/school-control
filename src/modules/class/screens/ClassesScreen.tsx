@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'r
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useClass } from '../hooks/useClass';
+import { formatShiftPtBr } from '../utils/formatShiftPtBr';
 
 export default function ClassesScreen() {
   const {
@@ -64,23 +65,33 @@ export default function ClassesScreen() {
                 <View style={styles.cardHeaderRow}>
                   <Text style={styles.cardTitle}>{item.name}</Text>
                   <View style={styles.rowActions}>
-                    <TouchableOpacity onPress={() => handleEditPress(item.id)} style={styles.iconButton}>
+                    <TouchableOpacity
+                      onPress={() => handleEditPress(item.id)}
+                      style={styles.iconButton}
+                    >
                       <Pencil size={16} color="#0f172a" />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleDeletePress(item)} style={styles.iconButton}>
+                    <TouchableOpacity
+                      onPress={() => handleDeletePress(item)}
+                      style={styles.iconButton}
+                    >
                       <Trash2 size={16} color="#b91c1c" />
                     </TouchableOpacity>
                   </View>
                 </View>
 
-                <Text style={styles.metaText}>Turno: {item.shift}</Text>
+                <Text style={styles.metaText}>Turno: {formatShiftPtBr(item.shift)}</Text>
                 <Text style={styles.metaText}>Ano Letivo: {item.school_year}</Text>
               </View>
             )}
           />
         )}
 
-        <TouchableOpacity style={styles.fab} onPress={handleNavigateToNewClass} activeOpacity={0.85}>
+        <TouchableOpacity
+          style={styles.fab}
+          onPress={handleNavigateToNewClass}
+          activeOpacity={0.85}
+        >
           <Text style={styles.fabText}>+ Nova Turma</Text>
         </TouchableOpacity>
       </View>

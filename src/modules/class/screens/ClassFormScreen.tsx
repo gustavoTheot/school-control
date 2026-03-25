@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useClassForm } from '../hooks/useClassForm';
+import { formatShiftPtBr } from '../utils/formatShiftPtBr';
 
 export default function ClassFormScreen() {
   const {
@@ -30,7 +31,9 @@ export default function ClassFormScreen() {
             ? `Atualize os dados da turma de ID: ${classId}`
             : 'Preencha os dados para cadastrar uma nova turma.'}
         </Text>
-        <Text style={styles.schoolInfo}>{`Escola vinculada: ${schoolName || 'Carregando escola...'}`}</Text>
+        <Text style={styles.schoolInfo}>
+          {`Escola vinculada: ${schoolName || 'Carregando escola...'}`}
+        </Text>
 
         <View style={styles.fieldBlock}>
           <Text style={styles.label}>Nome da Turma *</Text>
@@ -51,6 +54,7 @@ export default function ClassFormScreen() {
           <View style={styles.shiftRow}>
             {(['morning', 'afternoon', 'evening'] as const).map((option) => {
               const active = shift === option;
+
               return (
                 <TouchableOpacity
                   key={option}
@@ -60,8 +64,10 @@ export default function ClassFormScreen() {
                     if (errors.shift) setErrors((prev) => ({ ...prev, shift: undefined }));
                   }}
                 >
-                  <Text style={[styles.shiftButtonText, active ? styles.shiftButtonTextActive : null]}>
-                    {option}
+                  <Text
+                    style={[styles.shiftButtonText, active ? styles.shiftButtonTextActive : null]}
+                  >
+                    {formatShiftPtBr(option)}
                   </Text>
                 </TouchableOpacity>
               );
