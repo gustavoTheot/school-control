@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { isAxiosError } from 'axios';
 
-import { useSchoolStore } from '../../school/stores/schoolStore';
 import { showErrorToast, showSuccessToast } from '../../shared/utils/toast';
-import { useClassStore } from '../stores/classStore';
 import { CreateClass } from '../types/classDto';
+import { useClassStore } from '../stores/classStore';
+import { useSchoolStore } from '../../school/stores/schoolStore';
 
 type FormErrors = {
   name?: string;
@@ -31,7 +31,7 @@ export function useClassForm() {
   const isEditing = !!classId;
   const { classes, addClass, updateClass, fetchClasses, error: classStoreError } = useClassStore();
   const { schools, fetchSchools } = useSchoolStore();
-  
+
   const schoolName = schools.find((school) => school.id === schoolId)?.name;
 
   const [name, setName] = useState('');

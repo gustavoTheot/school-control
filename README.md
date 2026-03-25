@@ -1,50 +1,135 @@
-# Welcome to your Expo app 👋
+# School Control
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile em React Native para controle de escolas e turmas, com foco em fluxo CRUD, busca com filtro e arquitetura modular.
 
-## Get started
+## Objetivo
 
-1. Install dependencies
+Gerenciar escolas e turmas de forma simples, com navegação clara, feedback visual de ações e cobertura de testes para os principais fluxos da feature School.
 
-   ```bash
-   npm install
-   ```
+## Organização do projeto
 
-2. Start the app
+A estrutura segue um padrão modular por domínio, muito usado na comunidade React Native para facilitar manutenção e evolução por times.
 
-   ```bash
-   npx expo start
-   ```
+### Estrutura principal
 
-In the output, you'll find options to open the app in a
+- src/app
+   - Rotas do Expo Router (entrada de navegação da aplicação)
+- src/modules/school
+   - adapters: contratos e interfaces do módulo
+   - services: acesso a API
+   - stores: estado global do módulo com Zustand
+   - hooks: regras de UI e integração tela + store
+   - screens: componentes de tela
+   - types: tipos e DTOs
+- src/modules/class
+   - mesma estratégia estrutural do módulo School
+- src/modules/shared
+   - utilitários, componentes compartilhados e serviços transversais
+- src/mocks
+   - mock de API com MirageJS para desenvolvimento local
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Funcionalidades
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### School
 
-## Get a fresh project
+- Listagem de escolas
+- Busca por nome/endereço
+- Criação de escola
+- Edição de escola
+- Remoção de escola
+- Navegação para turmas vinculadas
 
-When you're ready, run:
+### Class
+
+- Listagem de turmas por escola
+- Busca por nome da turma
+- Criação de turma
+- Edição de turma
+- Remoção de turma
+
+### UX e feedback
+
+- Toast de sucesso e erro para ações de salvar, atualizar e remover
+- Layout responsivo com Safe Area para evitar sobreposição na barra de status
+
+## Testes
+
+Os testes atuais estão focados na feature School:
+
+- Teste de store
+   - src/modules/school/stores/__tests__/schoolStore.test.ts
+   - valida criar, atualizar e remover no estado
+- Teste de componente
+   - src/modules/school/screens/__tests__/SchoolsScreen.test.tsx
+   - valida renderização e interação principal da tela
+- Teste de filtro
+   - src/modules/school/hooks/__tests__/useSchool.filter.test.ts
+   - valida comportamento de trim e busca do hook
+
+## Como rodar o projeto
+
+1. Instalar dependências
 
 ```bash
-npm run reset-project
+pnpm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Rodar em ambiente de desenvolvimento
 
-## Learn more
+```bash
+pnpm start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Rodar testes
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+pnpm test
+```
 
-## Join the community
+4. Validar tipagem
 
-Join our community of developers creating universal apps.
+```bash
+pnpm exec tsc --noEmit
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Bibliotecas utilizadas
+
+### Base da aplicação
+
+- expo
+- react
+- react-native
+- expo-router
+
+### Navegação e UI
+
+- @react-navigation/native
+- react-native-safe-area-context
+- react-native-screens
+- lucide-react-native
+- nativewind
+- react-native-toast-message
+
+### Estado e dados
+
+- zustand
+- axios
+- miragejs
+
+### Testes e qualidade
+
+- jest
+- jest-expo
+- @testing-library/react-native
+- react-test-renderer
+- typescript
+- eslint
+- prettier
+
+## Boas práticas aplicadas
+
+- Separação por módulos de domínio
+- Separação de responsabilidades por camada (screen, hook, store, service)
+- Uso de tipagem forte com TypeScript
+- Testes cobrindo estado, tela e regra de filtro
+- Componentes compartilhados centralizados no módulo shared

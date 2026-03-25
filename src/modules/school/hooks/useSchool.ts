@@ -5,7 +5,8 @@ import { useRouter } from 'expo-router';
 
 import { useDebouncedValue } from '../../shared/utils/useDebouncedValue';
 import { showErrorToast, showSuccessToast } from '../../shared/utils/toast';
-import { SchoolItem, useSchoolStore } from '../stores/schoolStore';
+import { useSchoolStore } from '../stores/schoolStore';
+import { School } from '../types/schoolDto';
 
 export function useSchool() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export function useSchool() {
     router.push({ pathname: '/school/form', params: { id: schoolId } });
   };
 
-  const handleDeletePress = (school: SchoolItem) => {
+  const handleDeletePress = (school: School) => {
     Alert.alert('Remover escola', `Deseja remover ${school.name}?`, [
       { text: 'Cancelar', style: 'cancel' },
       {

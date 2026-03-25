@@ -1,4 +1,5 @@
 export interface School{
+  id: string;
   name: string;
   address: string;
   number_of_classes: number;
