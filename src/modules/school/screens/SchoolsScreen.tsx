@@ -36,7 +36,8 @@ export default function SchoolsScreen() {
           <TextInput
             value={searchQuery}
             onChangeText={setSearchQuery}
-            placeholder="Buscar escola por nome ou endereco"
+            placeholder="Buscar escola por nome e endereco"
+            placeholderTextColor="#64748b"
             style={styles.searchInput}
           />
         </View>

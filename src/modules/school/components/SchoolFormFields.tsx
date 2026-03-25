@@ -34,6 +34,7 @@ export function SchoolFormFields({
             if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
           }}
           placeholder="Ex: Colegio Nova Geracao"
+          placeholderTextColor="#64748b"
           style={[styles.input, errors.name ? styles.inputError : null]}
         />
         {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
@@ -48,6 +49,7 @@ export function SchoolFormFields({
             if (errors.address) setErrors((prev) => ({ ...prev, address: undefined }));
           }}
           placeholder="Ex: Rua das Flores, 120 - Centro"
+          placeholderTextColor="#64748b"
           style={[styles.input, errors.address ? styles.inputError : null]}
         />
         {errors.address ? <Text style={styles.errorText}>{errors.address}</Text> : null}

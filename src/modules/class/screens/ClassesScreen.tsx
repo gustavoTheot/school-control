@@ -40,6 +40,7 @@ export default function ClassesScreen() {
             value={searchQuery}
             onChangeText={setSearchQuery}
             placeholder="Buscar por nome da turma"
+            placeholderTextColor="#64748b"
             style={styles.searchInput}
           />
         </View>

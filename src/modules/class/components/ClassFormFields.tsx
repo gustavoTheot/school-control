@@ -42,6 +42,7 @@ export function ClassFormFields({
             if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
           }}
           placeholder="Ex: Turma A"
+          placeholderTextColor="#64748b"
           style={[styles.input, errors.name ? styles.inputError : null]}
         />
         {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
@@ -84,6 +85,7 @@ export function ClassFormFields({
           }}
           keyboardType="number-pad"
           placeholder="Ex: 2026"
+          placeholderTextColor="#64748b"
           style={[styles.input, errors.school_year ? styles.inputError : null]}
         />
         {errors.school_year ? <Text style={styles.errorText}>{errors.school_year}</Text> : null}
