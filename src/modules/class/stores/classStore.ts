@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
-import { ClassClass } from '../services/classService';
 import { Class, CreateClass, UpdateClass } from '../types/classDto';
+import { ClassService } from '../services/classService';
 
 export type ClassItem = Class & { id: string };
 
@@ -16,7 +16,7 @@ interface ClassState {
   removeClass: (id: string) => Promise<void>;
 }
 
-const classService = new ClassClass();
+const classService = new ClassService();
 
 export const useClassStore = create<ClassState>((set) => ({
   classes: [],
