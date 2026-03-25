@@ -164,6 +164,28 @@ pnpm exec tsc --noEmit
 - eslint
 - prettier
 
+## Prints da aplicação
+
+### Home
+
+![Home](src/assets/images/home.png)
+
+### Escolas
+
+![School](src/assets/images/school.png)
+
+### Formulário de Escola
+
+![Form School](src/assets/images/form-school.png)
+
+### Turmas
+
+![Class](src/assets/images/class.png)
+
+### Formulário de Turma
+
+![Form Class](src/assets/images/form-class.png)
+
 ## Boas práticas aplicadas
 
 - Separação por módulos de domínio
