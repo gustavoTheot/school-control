@@ -1,9 +1,9 @@
-import { ChevronLeft, Pencil, Search, Trash2 } from 'lucide-react-native';
+import { ChevronLeft, Search } from 'lucide-react-native';
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { ClassCard } from '../components/ClassCard';
 import { useClass } from '../hooks/useClass';
-import { formatShiftPtBr } from '../utils/formatShiftPtBr';
 
 export default function ClassesScreen() {
   const {
@@ -61,28 +61,7 @@ export default function ClassesScreen() {
               </View>
             }
             renderItem={({ item }) => (
-              <View style={styles.card}>
-                <View style={styles.cardHeaderRow}>
-                  <Text style={styles.cardTitle}>{item.name}</Text>
-                  <View style={styles.rowActions}>
-                    <TouchableOpacity
-                      onPress={() => handleEditPress(item.id)}
-                      style={styles.iconButton}
-                    >
-                      <Pencil size={16} color="#0f172a" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => handleDeletePress(item)}
-                      style={styles.iconButton}
-                    >
-                      <Trash2 size={16} color="#b91c1c" />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                <Text style={styles.metaText}>Turno: {formatShiftPtBr(item.shift)}</Text>
-                <Text style={styles.metaText}>Ano Letivo: {item.school_year}</Text>
-              </View>
+              <ClassCard classItem={item} onEdit={handleEditPress} onDelete={handleDeletePress} />
             )}
           />
         )}
@@ -160,44 +139,6 @@ const styles = StyleSheet.create({
     paddingBottom: 140,
     paddingTop: 6,
     gap: 10,
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    padding: 14,
-  },
-  cardHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  rowActions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  iconButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f8fafc',
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#0f172a',
-    flex: 1,
-    marginRight: 8,
-  },
-  metaText: {
-    color: '#475569',
-    marginTop: 2,
   },
   fab: {
     position: 'absolute',

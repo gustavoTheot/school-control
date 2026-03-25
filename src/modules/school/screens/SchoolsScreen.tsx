@@ -1,15 +1,8 @@
-import { ChevronLeft, Pencil, Search, Trash2 } from 'lucide-react-native';
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ChevronLeft, Search } from 'lucide-react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { SchoolCard } from '../components/SchoolCard';
 import { useSchool } from '../hooks/useSchool';
 
 export default function SchoolsScreen() {
@@ -65,51 +58,12 @@ export default function SchoolsScreen() {
               </View>
             }
             renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.card}
-                activeOpacity={0.85}
-                onPress={() => handleViewClasses(item.id)}
-              >
-                <View style={styles.cardHeaderRow}>
-                  <Text style={styles.cardTitle}>{item.name}</Text>
-                  <View style={styles.rowActions}>
-                    <Pressable
-                      onPress={(event) => {
-                        event.stopPropagation();
-                        handleEditPress(item.id);
-                      }}
-                      style={styles.iconButton}
-                    >
-                      <Pencil size={16} color="#0f172a" />
-                    </Pressable>
-                    <Pressable
-                      onPress={(event) => {
-                        event.stopPropagation();
-                        handleDeletePress(item);
-                      }}
-                      style={styles.iconButton}
-                    >
-                      <Trash2 size={16} color="#b91c1c" />
-                    </Pressable>
-                  </View>
-                </View>
-
-                <Text style={styles.address}>{item.address}</Text>
-
-                <View style={styles.classCountRow}>
-                  <Text style={styles.classCountLabel}>Turmas:</Text>
-                  <Text style={styles.classCountValue}>{item.number_of_classes}</Text>
-                  <Pressable
-                    style={styles.classesLinkButton}
-                    onPress={(event) => {
-                      event.stopPropagation();
-                      handleViewClasses(item.id);
-                    }}
-                  >
-                    <Text style={styles.classesLinkText}>Ver Turmas</Text>
-                  </Pressable>
-                </View>
-              </TouchableOpacity>
+              <SchoolCard
+                school={item}
+                onOpenClasses={handleViewClasses}
+                onEdit={handleEditPress}
+                onDelete={handleDeletePress}
+              />
             )}
           />
         )}
@@ -182,74 +136,6 @@ const styles = StyleSheet.create({
     paddingBottom: 140,
     paddingTop: 6,
     gap: 10,
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    padding: 14,
-  },
-  cardHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  rowActions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  iconButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f8fafc',
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#0f172a',
-    flex: 1,
-    marginRight: 8,
-  },
-  address: {
-    color: '#475569',
-    marginTop: 2,
-  },
-  classCountRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-    gap: 10,
-  },
-  classCountLabel: {
-    color: '#334155',
-    fontWeight: '700',
-  },
-  classCountValue: {
-    minWidth: 24,
-    textAlign: 'center',
-    color: '#0f172a',
-    fontWeight: '800',
-  },
-  classesLinkButton: {
-    marginLeft: 'auto',
-    paddingHorizontal: 10,
-    height: 28,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#e0e7ff',
-  },
-  classesLinkText: {
-    color: '#1e40af',
-    fontWeight: '700',
-    fontSize: 12,
   },
   fab: {
     position: 'absolute',
